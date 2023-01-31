@@ -2925,7 +2925,7 @@ func (f *Fpdf) WriteLinkID(h float64, displayStr string, linkID int) {
 //
 // width indicates the width of the box the text will be drawn in. This is in
 // the unit of measure specified in New(). If it is set to 0, the bounding box
-//of the page will be taken (pageWidth - leftMargin - rightMargin).
+// of the page will be taken (pageWidth - leftMargin - rightMargin).
 //
 // lineHeight indicates the line height in the unit of measure specified in
 // New().
@@ -4995,4 +4995,14 @@ func (f *Fpdf) arc(x, y, rx, ry, degRotate, degStart, degEnd float64,
 	if degRotate != 0 {
 		f.out("Q")
 	}
+}
+
+// Size calculate the total size of all pages already added into f.
+func (f *Fpdf) Size() int {
+	var size int
+	for _, page := range f.pages {
+		size += page.Len()
+	}
+
+	return size
 }
